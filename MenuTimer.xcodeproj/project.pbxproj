@@ -1,0 +1,489 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C10000000000000000000001 /* MenuTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* MenuTimerApp.swift */; };
+		C10000000000000000000002 /* TimerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* TimerItem.swift */; };
+		C10000000000000000000003 /* TimerLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* TimerLogic.swift */; };
+		C10000000000000000000004 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000004 /* TimeFormatter.swift */; };
+		C10000000000000000000005 /* TimerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000005 /* TimerStore.swift */; };
+		C10000000000000000000006 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000006 /* NotificationManager.swift */; };
+		C10000000000000000000007 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* LaunchAtLoginManager.swift */; };
+		C10000000000000000000008 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* TimerManager.swift */; };
+		C10000000000000000000009 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* MenuBarView.swift */; };
+		C1000000000000000000000A /* TimerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* TimerDetailView.swift */; };
+		C1000000000000000000000B /* TimerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* TimerListView.swift */; };
+		C1000000000000000000000C /* AddTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* AddTimerView.swift */; };
+		C1000000000000000000000D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* SettingsView.swift */; };
+		C1000000000000000000000E /* TimerLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* TimerLogicTests.swift */; };
+		C1000000000000000000000F /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20000000000000000000001 /* UserNotifications.framework */; };
+		C10000000000000000000010 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20000000000000000000002 /* ServiceManagement.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		I10000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E10000000000000000000001;
+			remoteInfo = MenuTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A10000000000000000000001 /* MenuTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000002 /* MenuTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000001 /* MenuTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTimerApp.swift; sourceTree = "<group>"; };
+		B10000000000000000000002 /* TimerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerItem.swift; sourceTree = "<group>"; };
+		B10000000000000000000003 /* TimerLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLogic.swift; sourceTree = "<group>"; };
+		B10000000000000000000004 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		B10000000000000000000005 /* TimerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStore.swift; sourceTree = "<group>"; };
+		B10000000000000000000006 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B10000000000000000000007 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
+		B10000000000000000000008 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		B10000000000000000000009 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000A /* TimerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDetailView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000B /* TimerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000C /* AddTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimerView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000E /* TimerLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLogicTests.swift; sourceTree = "<group>"; };
+		F20000000000000000000001 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		F20000000000000000000002 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F10000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1000000000000000000000F /* UserNotifications.framework in Frameworks */,
+				C10000000000000000000010 /* ServiceManagement.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10000000000000000000005 /* Test Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D10000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				D10000000000000000000008 /* MenuTimer */,
+				D10000000000000000000006 /* Tests */,
+				F20000000000000000000001 /* UserNotifications.framework */,
+				F20000000000000000000002 /* ServiceManagement.framework */,
+				D10000000000000000000007 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D10000000000000000000008 /* MenuTimer */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000001 /* MenuTimerApp.swift */,
+				D10000000000000000000002 /* Models */,
+				D10000000000000000000003 /* Managers */,
+				D10000000000000000000004 /* Views */,
+				D10000000000000000000005 /* Utilities */,
+			);
+			path = MenuTimer;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000002 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000002 /* TimerItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000003 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000005 /* TimerStore.swift */,
+				B10000000000000000000006 /* NotificationManager.swift */,
+				B10000000000000000000007 /* LaunchAtLoginManager.swift */,
+				B10000000000000000000008 /* TimerManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000009 /* MenuBarView.swift */,
+				B1000000000000000000000A /* TimerDetailView.swift */,
+				B1000000000000000000000B /* TimerListView.swift */,
+				B1000000000000000000000C /* AddTimerView.swift */,
+				B1000000000000000000000D /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000005 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000003 /* TimerLogic.swift */,
+				B10000000000000000000004 /* TimeFormatter.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000006 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000E /* TimerLogicTests.swift */,
+			);
+			path = MenuTimerTests;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000007 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000001 /* MenuTimer.app */,
+				A10000000000000000000002 /* MenuTimerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E10000000000000000000001 /* MenuTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G10000000000000000000002 /* Build configuration list for PBXNativeTarget "MenuTimer" */;
+			buildPhases = (
+				F10000000000000000000001 /* Sources */,
+				F10000000000000000000002 /* Frameworks */,
+				F10000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MenuTimer;
+			productName = MenuTimer;
+			productReference = A10000000000000000000001 /* MenuTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E10000000000000000000002 /* MenuTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G10000000000000000000003 /* Build configuration list for PBXNativeTarget "MenuTimerTests" */;
+			buildPhases = (
+				F10000000000000000000004 /* Test Sources */,
+				F10000000000000000000005 /* Test Frameworks */,
+				F10000000000000000000006 /* Test Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				I10000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = MenuTimerTests;
+			productName = MenuTimerTests;
+			productReference = A10000000000000000000002 /* MenuTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E10000000000000000000001 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					E10000000000000000000002 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = E10000000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = G10000000000000000000001 /* Build configuration list for PBXProject "MenuTimer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D10000000000000000000001;
+			productRefGroup = D10000000000000000000007 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E10000000000000000000001 /* MenuTimer */,
+				E10000000000000000000002 /* MenuTimerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F10000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10000000000000000000006 /* Test Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		I10000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E10000000000000000000001 /* MenuTimer */;
+			targetProxy = I10000000000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F10000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C10000000000000000000001 /* MenuTimerApp.swift in Sources */,
+				C10000000000000000000002 /* TimerItem.swift in Sources */,
+				C10000000000000000000003 /* TimerLogic.swift in Sources */,
+				C10000000000000000000004 /* TimeFormatter.swift in Sources */,
+				C10000000000000000000005 /* TimerStore.swift in Sources */,
+				C10000000000000000000006 /* NotificationManager.swift in Sources */,
+				C10000000000000000000007 /* LaunchAtLoginManager.swift in Sources */,
+				C10000000000000000000008 /* TimerManager.swift in Sources */,
+				C10000000000000000000009 /* MenuBarView.swift in Sources */,
+				C1000000000000000000000A /* TimerDetailView.swift in Sources */,
+				C1000000000000000000000B /* TimerListView.swift in Sources */,
+				C1000000000000000000000C /* AddTimerView.swift in Sources */,
+				C1000000000000000000000D /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10000000000000000000004 /* Test Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1000000000000000000000E /* TimerLogicTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		H10000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WARNING_CFLAGS = "-Wall -Wextra";
+			};
+			name = Debug;
+		};
+		H10000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+				WARNING_CFLAGS = "-Wall -Wextra";
+			};
+			name = Release;
+		};
+		H10000000000000000000003 /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		H10000000000000000000004 /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		H10000000000000000000005 /* App Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MenuTimer;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.liyunsiao.MenuTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		H10000000000000000000006 /* App Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MenuTimer;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.liyunsiao.MenuTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		H10000000000000000000007 /* Tests Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.liyunsiao.MenuTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuTimer.app/Contents/MacOS/MenuTimer";
+			};
+			name = Debug;
+		};
+		H10000000000000000000008 /* Tests Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.liyunsiao.MenuTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuTimer.app/Contents/MacOS/MenuTimer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		G10000000000000000000001 /* Build configuration list for PBXProject "MenuTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				H10000000000000000000003 /* Project Debug */,
+				H10000000000000000000004 /* Project Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G10000000000000000000002 /* Build configuration list for PBXNativeTarget "MenuTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				H10000000000000000000005 /* App Debug */,
+				H10000000000000000000006 /* App Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G10000000000000000000003 /* Build configuration list for PBXNativeTarget "MenuTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				H10000000000000000000007 /* Tests Debug */,
+				H10000000000000000000008 /* Tests Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000000000000000000001 /* Project object */;
+}
