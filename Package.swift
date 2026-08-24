@@ -24,6 +24,7 @@ let package = Package(
                 "Managers/NotificationManager.swift",
                 "Managers/LaunchAtLoginManager.swift",
                 "Managers/TimerManager.swift",
+                "Assets.xcassets",
                 "Views"
             ],
             sources: [

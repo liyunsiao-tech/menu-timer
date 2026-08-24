@@ -150,6 +150,33 @@ enum TimerLogic {
         return true
     }
 
+    /// Replaces a Scheduled Duration's schedule with the values supplied by
+    /// the user. The new schedule is authoritative: it clears any paused or
+    /// completed snapshot, resets the notification attempt, and immediately
+    /// derives the current running/scheduled/completed state from `now`.
+    @discardableResult
+    static func reschedule(
+        _ timer: inout TimerItem,
+        startDate: Date,
+        duration: TimeInterval,
+        at now: Date
+    ) -> Bool {
+        guard timer.kind == .scheduledDuration,
+              duration >= minimumDuration else {
+            return false
+        }
+
+        timer.originalStartDate = startDate
+        timer.originalDuration = duration
+        timer.startDate = startDate
+        timer.targetEndDate = startDate.addingTimeInterval(duration)
+        timer.remainingDuration = duration
+        timer.state = .running
+        timer.completionNotificationAttempted = false
+        synchronize(&timer, at: now)
+        return true
+    }
+
     /// Restarts a normal timer from now. A scheduled-duration timer instead
     /// restores its original selected schedule, even when that schedule is in
     /// the past; it never silently moves the schedule to now.

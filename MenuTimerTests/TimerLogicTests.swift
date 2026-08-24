@@ -242,6 +242,120 @@ final class TimerLogicTests: XCTestCase {
         XCTAssertEqual(timer.remainingDuration, 0, accuracy: 0.001)
     }
 
+    func testRescheduleRunningScheduledTimerReplacesSchedule() {
+        var timer = makeScheduledTimer(startDate: start, duration: 8 * 86_400)
+        let newStart = start.addingTimeInterval(3_600)
+        let newDuration = 2 * 86_400.0
+        let now = start.addingTimeInterval(600)
+
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: newDuration,
+            at: now
+        ))
+        XCTAssertEqual(timer.originalStartDate, newStart)
+        XCTAssertEqual(timer.startDate, newStart)
+        XCTAssertEqual(timer.originalDuration, newDuration)
+        XCTAssertEqual(timer.targetEndDate, newStart.addingTimeInterval(newDuration))
+        XCTAssertEqual(timer.state, .running)
+        XCTAssertEqual(TimerLogic.phase(for: timer, at: now), .scheduled)
+        XCTAssertEqual(timer.remainingDuration, newDuration, accuracy: 0.001)
+    }
+
+    func testRescheduleActiveScheduledTimerUsesNewProgress() {
+        var timer = makeScheduledTimer(startDate: start, duration: 8 * 86_400)
+        let newStart = start.addingTimeInterval(-600)
+        let newDuration = 3_600.0
+        let now = start
+
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: newDuration,
+            at: now
+        ))
+        XCTAssertEqual(TimerLogic.phase(for: timer, at: now), .running)
+        XCTAssertEqual(TimerLogic.progress(for: timer, at: now), 1.0 / 6.0, accuracy: 0.001)
+        XCTAssertEqual(timer.remainingDuration, 3_000, accuracy: 0.001)
+    }
+
+    func testReschedulePausedTimerClearsPausedSnapshot() {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let pausedAt = start.addingTimeInterval(600)
+        let newStart = start.addingTimeInterval(7_200)
+
+        XCTAssertTrue(TimerLogic.pause(&timer, at: pausedAt))
+        timer.completionNotificationAttempted = true
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 1_800,
+            at: pausedAt
+        ))
+        XCTAssertEqual(timer.state, .running)
+        XCTAssertFalse(timer.completionNotificationAttempted)
+        XCTAssertEqual(TimerLogic.phase(for: timer, at: pausedAt), .scheduled)
+        XCTAssertEqual(timer.remainingDuration, 1_800, accuracy: 0.001)
+    }
+
+    func testRescheduleCompletedTimerCreatesNewSchedule() {
+        var timer = makeScheduledTimer(startDate: start.addingTimeInterval(-3_600), duration: 1_800)
+        XCTAssertTrue(TimerLogic.synchronize(&timer, at: start))
+        timer.completionNotificationAttempted = true
+        let newStart = start.addingTimeInterval(600)
+
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 1_800,
+            at: start
+        ))
+        XCTAssertEqual(timer.state, .running)
+        XCTAssertFalse(timer.completionNotificationAttempted)
+        XCTAssertEqual(TimerLogic.phase(for: timer, at: start), .scheduled)
+        XCTAssertEqual(timer.remainingDuration, 1_800, accuracy: 0.001)
+    }
+
+    func testReschedulePastScheduleCompletesImmediately() {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let newStart = start.addingTimeInterval(-7_200)
+
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 3_600,
+            at: start
+        ))
+        XCTAssertEqual(timer.state, .completed)
+        XCTAssertEqual(TimerLogic.phase(for: timer, at: start), .completed)
+        XCTAssertEqual(timer.remainingDuration, 0, accuracy: 0.001)
+    }
+
+    func testRescheduledSchedulePersistenceRoundTrip() throws {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let newStart = start.addingTimeInterval(7_200)
+        XCTAssertTrue(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 7_200,
+            at: start
+        ))
+
+        let temporaryDirectory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("MenuTimerReschedule-\(UUID().uuidString)", isDirectory: true)
+        let store = TimerStore(fileURL: temporaryDirectory.appendingPathComponent("timers.json"))
+        try store.save(TimerStoreSnapshot(timers: [timer], selectedTimerID: timer.id))
+        let loaded = try store.load().timers[0]
+
+        XCTAssertEqual(loaded.originalStartDate, newStart)
+        XCTAssertEqual(loaded.startDate, newStart)
+        XCTAssertEqual(loaded.originalDuration, 7_200, accuracy: 0.001)
+        XCTAssertEqual(loaded.targetEndDate, newStart.addingTimeInterval(7_200))
+        XCTAssertEqual(loaded.state, .running)
+        try? FileManager.default.removeItem(at: temporaryDirectory)
+    }
+
     func testV1JSONMigrationDefaultsStartDateFromCreatedAt() throws {
         let id = UUID(uuidString: "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE")!
         let legacyJSON = """

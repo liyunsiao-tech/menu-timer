@@ -5,6 +5,7 @@ enum TimerCreationError: LocalizedError {
     case emptyName
     case invalidDuration
     case endDateInPast
+    case scheduledDurationRequired
 
     var errorDescription: String? {
         switch self {
@@ -14,6 +15,8 @@ enum TimerCreationError: LocalizedError {
             return "持續時間必須大於 0。"
         case .endDateInPast:
             return "結束時間必須晚於現在。"
+        case .scheduledDurationRequired:
+            return "只有 Scheduled Duration 可以編輯排程。"
         }
     }
 }
@@ -192,6 +195,36 @@ final class TimerManager: ObservableObject {
         now = createdAt
         appendAndSelect(item)
         return item.id
+    }
+
+    func updateScheduledDurationTimer(
+        id: UUID,
+        startDate: Date,
+        duration: TimeInterval
+    ) throws {
+        let currentDate = Date()
+        now = currentDate
+        guard let index = timers.firstIndex(where: { $0.id == id }) else { return }
+        guard timers[index].kind == .scheduledDuration else {
+            throw TimerCreationError.scheduledDurationRequired
+        }
+        guard duration >= TimerLogic.minimumDuration else {
+            throw TimerCreationError.invalidDuration
+        }
+
+        var item = timers[index]
+        guard TimerLogic.reschedule(
+            &item,
+            startDate: startDate,
+            duration: duration,
+            at: currentDate
+        ) else {
+            throw TimerCreationError.scheduledDurationRequired
+        }
+
+        timers[index] = item
+        save()
+        startRefreshLoop()
     }
 
     func pauseTimer(id: UUID) {

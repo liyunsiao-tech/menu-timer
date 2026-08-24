@@ -26,8 +26,14 @@ struct CoreTimerTestRunner {
         testScheduledPauseResumePreservesProgress()
         testScheduledPersistencePreservesSchedule()
         testScheduledResetRestoresOriginalPastSchedule()
+        testRescheduleRunningScheduledTimerReplacesSchedule()
+        testRescheduleActiveScheduledTimerUsesNewProgress()
+        testReschedulePausedTimerClearsPausedSnapshot()
+        testRescheduleCompletedTimerCreatesNewSchedule()
+        testReschedulePastScheduleCompletesImmediately()
+        testRescheduledSchedulePersistenceRoundTrip()
         testV1JSONMigrationDefaultsStartDateFromCreatedAt()
-        print("MenuTimerCoreTestRunner: 21 tests passed")
+        print("MenuTimerCoreTestRunner: 27 tests passed")
     }
 
     private static func testRunningTimerUsesTargetDateForRemainingTime() {
@@ -327,6 +333,122 @@ struct CoreTimerTestRunner {
         expect(timer.targetEndDate == scheduledStart.addingTimeInterval(7 * 86_400), "scheduled reset end")
         expect(timer.state == .completed, "past scheduled reset stays completed")
         expect(timer.remainingDuration == 0, "past scheduled reset remaining")
+    }
+
+    private static func testRescheduleRunningScheduledTimerReplacesSchedule() {
+        var timer = makeScheduledTimer(startDate: start, duration: 8 * 86_400)
+        let newStart = start.addingTimeInterval(3_600)
+        let newDuration = 2 * 86_400.0
+        let now = start.addingTimeInterval(600)
+
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: newDuration,
+            at: now
+        ), "running scheduled reschedule")
+        expect(timer.originalStartDate == newStart, "reschedule original start")
+        expect(timer.startDate == newStart, "reschedule effective start")
+        expect(timer.originalDuration == newDuration, "reschedule duration")
+        expect(timer.targetEndDate == newStart.addingTimeInterval(newDuration), "reschedule target")
+        expect(timer.state == .running, "rescheduled timer state")
+        expect(TimerLogic.phase(for: timer, at: now) == .scheduled, "rescheduled future phase")
+        expect(timer.remainingDuration == newDuration, "rescheduled future remaining")
+    }
+
+    private static func testRescheduleActiveScheduledTimerUsesNewProgress() {
+        var timer = makeScheduledTimer(startDate: start, duration: 8 * 86_400)
+        let newStart = start.addingTimeInterval(-600)
+        let newDuration = 3_600.0
+
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: newDuration,
+            at: start
+        ), "active scheduled reschedule")
+        expect(TimerLogic.phase(for: timer, at: start) == .running, "rescheduled active phase")
+        expect(abs(TimerLogic.progress(for: timer, at: start) - (1.0 / 6.0)) < 0.001, "rescheduled progress")
+        expect(timer.remainingDuration == 3_000, "rescheduled active remaining")
+    }
+
+    private static func testReschedulePausedTimerClearsPausedSnapshot() {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let pausedAt = start.addingTimeInterval(600)
+        let newStart = start.addingTimeInterval(7_200)
+
+        expect(TimerLogic.pause(&timer, at: pausedAt), "scheduled pause before reschedule")
+        timer.completionNotificationAttempted = true
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 1_800,
+            at: pausedAt
+        ), "paused scheduled reschedule")
+        expect(timer.state == .running, "reschedule clears paused state")
+        expect(!timer.completionNotificationAttempted, "reschedule clears notification attempt")
+        expect(TimerLogic.phase(for: timer, at: pausedAt) == .scheduled, "rescheduled paused future phase")
+        expect(timer.remainingDuration == 1_800, "rescheduled paused remaining")
+    }
+
+    private static func testRescheduleCompletedTimerCreatesNewSchedule() {
+        var timer = makeScheduledTimer(startDate: start.addingTimeInterval(-3_600), duration: 1_800)
+        expect(TimerLogic.synchronize(&timer, at: start), "scheduled completion before reschedule")
+        timer.completionNotificationAttempted = true
+        let newStart = start.addingTimeInterval(600)
+
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 1_800,
+            at: start
+        ), "completed scheduled reschedule")
+        expect(timer.state == .running, "reschedule clears completed state")
+        expect(!timer.completionNotificationAttempted, "completed reschedule clears notification attempt")
+        expect(TimerLogic.phase(for: timer, at: start) == .scheduled, "completed reschedule future phase")
+        expect(timer.remainingDuration == 1_800, "completed reschedule remaining")
+    }
+
+    private static func testReschedulePastScheduleCompletesImmediately() {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let newStart = start.addingTimeInterval(-7_200)
+
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 3_600,
+            at: start
+        ), "past scheduled reschedule")
+        expect(timer.state == .completed, "past reschedule completes")
+        expect(TimerLogic.phase(for: timer, at: start) == .completed, "past reschedule phase")
+        expect(timer.remainingDuration == 0, "past reschedule remaining")
+    }
+
+    private static func testRescheduledSchedulePersistenceRoundTrip() {
+        var timer = makeScheduledTimer(startDate: start, duration: 3_600)
+        let newStart = start.addingTimeInterval(7_200)
+        expect(TimerLogic.reschedule(
+            &timer,
+            startDate: newStart,
+            duration: 7_200,
+            at: start
+        ), "reschedule persistence setup")
+
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("MenuTimerReschedule-\(UUID().uuidString)", isDirectory: true)
+        let store = TimerStore(fileURL: directory.appendingPathComponent("timers.json"))
+        do {
+            try store.save(TimerStoreSnapshot(timers: [timer], selectedTimerID: timer.id))
+            let loaded = try store.load().timers[0]
+            expect(loaded.originalStartDate == newStart, "rescheduled original start persistence")
+            expect(loaded.startDate == newStart, "rescheduled start persistence")
+            expect(loaded.originalDuration == 7_200, "rescheduled duration persistence")
+            expect(loaded.targetEndDate == newStart.addingTimeInterval(7_200), "rescheduled target persistence")
+            expect(loaded.state == .running, "rescheduled state persistence")
+        } catch {
+            fail("reschedule persistence threw \(error)")
+        }
+        try? FileManager.default.removeItem(at: directory)
     }
 
     private static func testV1JSONMigrationDefaultsStartDateFromCreatedAt() {

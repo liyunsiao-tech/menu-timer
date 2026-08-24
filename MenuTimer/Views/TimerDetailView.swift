@@ -3,6 +3,7 @@ import SwiftUI
 struct TimerDetailView: View {
     @EnvironmentObject private var timerManager: TimerManager
     let timerID: UUID
+    let onEditScheduledTimer: () -> Void
 
     var body: some View {
         if let timer = timerManager.timer(with: timerID) {
@@ -61,15 +62,21 @@ struct TimerDetailView: View {
                     stateActionButton(for: timer, phase: phase)
 
                     if phase != .completed {
-                        Button {
-                            timerManager.resetTimer(id: timer.id)
-                        } label: {
-                            Label(
-                                timer.kind == .scheduledDuration ? "重設排程" : "重設",
-                                systemImage: "arrow.counterclockwise"
-                            )
+                        if timer.kind == .scheduledDuration {
+                            Button {
+                                onEditScheduledTimer()
+                            } label: {
+                                Label("編輯排程", systemImage: "pencil")
+                            }
+                            .buttonStyle(.bordered)
+                        } else {
+                            Button {
+                                timerManager.resetTimer(id: timer.id)
+                            } label: {
+                                Label("重設", systemImage: "arrow.counterclockwise")
+                            }
+                            .buttonStyle(.bordered)
                         }
-                        .buttonStyle(.bordered)
                     }
 
                     Button(role: .destructive) {
@@ -108,15 +115,21 @@ struct TimerDetailView: View {
             .buttonStyle(.borderedProminent)
 
         case .completed:
-            Button {
-                timerManager.resetTimer(id: timer.id)
-            } label: {
-                Label(
-                    timer.kind == .scheduledDuration ? "恢復原始排程" : "重新開始",
-                    systemImage: "play.fill"
-                )
+            if timer.kind == .scheduledDuration {
+                Button {
+                    onEditScheduledTimer()
+                } label: {
+                    Label("編輯排程", systemImage: "pencil")
+                }
+                .buttonStyle(.borderedProminent)
+            } else {
+                Button {
+                    timerManager.resetTimer(id: timer.id)
+                } label: {
+                    Label("重新開始", systemImage: "play.fill")
+                }
+                .buttonStyle(.borderedProminent)
             }
-            .buttonStyle(.borderedProminent)
         }
     }
 

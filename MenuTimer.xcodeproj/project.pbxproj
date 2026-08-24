@@ -24,6 +24,7 @@
 		C1000000000000000000000F /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20000000000000000000001 /* UserNotifications.framework */; };
 		C10000000000000000000010 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20000000000000000000002 /* ServiceManagement.framework */; };
 		C10000000000000000000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* Assets.xcassets */; };
+		C10000000000000000000012 /* EditScheduledTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000010 /* EditScheduledTimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		B1000000000000000000000D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B1000000000000000000000E /* TimerLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLogicTests.swift; sourceTree = "<group>"; };
 		B1000000000000000000000F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000010 /* EditScheduledTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledTimerView.swift; sourceTree = "<group>"; };
 		F20000000000000000000001 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		F20000000000000000000002 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -129,6 +131,7 @@
 				B1000000000000000000000B /* TimerListView.swift */,
 				B1000000000000000000000C /* AddTimerView.swift */,
 				B1000000000000000000000D /* SettingsView.swift */,
+				B10000000000000000000010 /* EditScheduledTimerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				C1000000000000000000000B /* TimerListView.swift in Sources */,
 				C1000000000000000000000C /* AddTimerView.swift in Sources */,
 				C1000000000000000000000D /* SettingsView.swift in Sources */,
+				C10000000000000000000012 /* EditScheduledTimerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@ Bundle Identifier：`tech.liyunsiao.MenuTimer`；Test target 使用 `tech.liyuns
 - 以指定日期與時間建立 Timer；過去的時間會被 UI 阻止
 - 以指定開始日期/時間與天、小時、分鐘建立 Scheduled Duration Timer
 - 多個 Timer 同時運作，並可切換目前選中的 Timer
-- Pause、Resume、Reset、Delete
+- Pause、Resume、Reset、Delete；Scheduled Duration 可編輯開始時間與持續時間
 - Detail View 顯示已過百分比、剩餘百分比與原生 `ProgressView`
 - Menu Bar 顯示目前選中 Timer 的時間、名稱 + 時間或百分比
 - 超過 24 小時的精簡顯示、低於 10 分鐘的警示顯示，以及完成狀態
@@ -80,6 +80,7 @@ MenuTimer/
 │   ├── TimerDetailView.swift
 │   ├── TimerListView.swift
 │   ├── AddTimerView.swift
+│   ├── EditScheduledTimerView.swift
 │   └── SettingsView.swift
 └── Utilities/
     ├── TimerLogic.swift
@@ -118,7 +119,7 @@ Pause 會把當下的真實剩餘秒數寫入 `remainingDuration`。Resume 會�
 targetEndDate = currentDate + pausedRemainingDuration
 ```
 
-Reset 會使用建立時保存的 `originalDuration`。一般 Duration 與 Absolute End Timer 會從現在重新開始；Scheduled Duration Timer 則恢復原始 `startDate` 與 `targetEndDate`。如果原始排程已經完整過去，Reset 後仍保持 completed，不會偷偷移到現在。
+Reset 會使用建立時保存的 `originalDuration`。一般 Duration 與 Absolute End Timer 會從現在重新開始；Scheduled Duration Timer 使用「編輯排程」表單更新開始時間與持續時間。儲存後新排程完全取代舊排程，若新的結束時間已經過去則保持 completed，不會偷偷移到現在。
 
 ## Persistence
 

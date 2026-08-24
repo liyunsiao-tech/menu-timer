@@ -4,6 +4,7 @@ import SwiftUI
 struct MenuBarView: View {
     @EnvironmentObject private var timerManager: TimerManager
     @State private var isPresentingAddTimer = false
+    @State private var editingScheduledTimerID: UUID?
 
     private var otherTimerIDs: [UUID] {
         timerManager.timers
@@ -18,6 +19,11 @@ struct MenuBarView: View {
                 // sheet gives menu-bar content a second presentation layer
                 // whose controls can dismiss the panel unexpectedly.
                 AddTimerView(isPresented: $isPresentingAddTimer)
+            } else if let editingScheduledTimerID,
+                      let timer = timerManager.timer(with: editingScheduledTimerID) {
+                EditScheduledTimerView(timer: timer) {
+                    self.editingScheduledTimerID = nil
+                }
             } else {
                 mainPanel
             }
@@ -32,7 +38,9 @@ struct MenuBarView: View {
     private var mainPanel: some View {
         VStack(alignment: .leading, spacing: 0) {
             if let selectedTimer = timerManager.selectedTimer {
-                TimerDetailView(timerID: selectedTimer.id)
+                TimerDetailView(timerID: selectedTimer.id) {
+                    editingScheduledTimerID = selectedTimer.id
+                }
             } else {
                 EmptyTimerView()
             }

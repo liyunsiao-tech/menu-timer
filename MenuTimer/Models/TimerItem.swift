@@ -71,9 +71,9 @@ struct TimerItem: Identifiable, Codable, Equatable, Sendable {
     var name: String
     let createdAt: Date
     var startDate: Date
-    let originalStartDate: Date?
+    var originalStartDate: Date?
     let kind: TimerKind
-    let originalDuration: TimeInterval
+    var originalDuration: TimeInterval
     var targetEndDate: Date?
     var remainingDuration: TimeInterval
     var state: TimerState
