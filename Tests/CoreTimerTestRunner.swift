@@ -150,6 +150,27 @@ struct CoreTimerTestRunner {
             "named menu format"
         )
 
+        let percentageTimer = makeTimer(duration: 10_000)
+        expect(
+            TimeFormatter.menuBarTitle(
+                for: percentageTimer,
+                at: start.addingTimeInterval(130),
+                format: .percentage
+            ) == "1.3%",
+            "menu bar percentage should show one decimal"
+        )
+        expect(
+            TimeFormatter.menuBarTitle(for: percentageTimer, at: start, format: .percentage) == "0.0%",
+            "zero menu bar percentage should show one decimal"
+        )
+        expect(
+            TimeFormatter.menuBarPercentageText(
+                for: percentageTimer,
+                at: start.addingTimeInterval(10_000)
+            ) == "100.0%",
+            "full menu bar percentage should show one decimal"
+        )
+
         var completed = makeTimer(duration: 60)
         completed.state = .completed
         expect(

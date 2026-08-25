@@ -87,6 +87,27 @@ final class TimerLogicTests: XCTestCase {
             "面試 02:14"
         )
 
+        let percentageTimer = makeTimer(duration: 10_000)
+        XCTAssertEqual(
+            TimeFormatter.menuBarTitle(
+                for: percentageTimer,
+                at: start.addingTimeInterval(130),
+                format: .percentage
+            ),
+            "1.3%"
+        )
+        XCTAssertEqual(
+            TimeFormatter.menuBarTitle(for: percentageTimer, at: start, format: .percentage),
+            "0.0%"
+        )
+        XCTAssertEqual(
+            TimeFormatter.menuBarPercentageText(
+                for: percentageTimer,
+                at: start.addingTimeInterval(10_000)
+            ),
+            "100.0%"
+        )
+
         var completed = makeTimer(duration: 60)
         completed.state = .completed
         XCTAssertEqual(

@@ -91,6 +91,11 @@ enum TimeFormatter {
         String(format: "%.2f%%", min(100, max(0, percentage)))
     }
 
+    static func menuBarPercentageText(for timer: TimerItem, at now: Date) -> String {
+        let percentage = TimerLogic.progress(for: timer, at: now) * 100
+        return String(format: "%.1f%%", min(100, max(0, percentage)))
+    }
+
     static func truncatedName(_ name: String, maxCharacters: Int = 12) -> String {
         let normalized = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard normalized.count > maxCharacters else {
@@ -136,7 +141,7 @@ enum TimeFormatter {
             return warningPrefix + truncatedName(timer.name) + " " + menuCountdown(remaining)
         case .percentage:
             let warningPrefix = remaining < 600 ? "⚠︎ " : ""
-            return warningPrefix + String(progressPercent(for: timer, at: now)) + "%"
+            return warningPrefix + menuBarPercentageText(for: timer, at: now)
         }
     }
 
